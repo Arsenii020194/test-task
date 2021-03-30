@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collection;
 
@@ -21,11 +22,12 @@ public class OperationService {
     private final OperationMapper operationMapper;
 
     @Transactional
-    public void create(Long from, Long to, OperationType type) {
+    public void create(Long from, Long to, OperationType type, BigDecimal amount) {
         var operation = new Operation();
         operation.setTo(to);
         operation.setFrom(from);
         operation.setDate(LocalDate.now());
+        operation.setAmount(amount);
         operation.setType(operationTypeRepository.findFirstByCode(type.name()));
         operationMapper.entityToDto(operationRepository.save(operation));
     }

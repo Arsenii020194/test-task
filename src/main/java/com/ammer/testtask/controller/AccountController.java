@@ -34,7 +34,7 @@ public class AccountController {
                                           @ApiParam(name = "amount", required = true) BigDecimal amount) {
         try {
             accountService.deposit(accountId, amount);
-            operationService.create(null, accountId, DEPOSIT);
+            operationService.create(null, accountId, DEPOSIT, amount);
             return ResponseEntity.ok(null);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
@@ -49,7 +49,7 @@ public class AccountController {
                                              @ApiParam(name = "amount", required = true) BigDecimal amount) {
         try {
             accountService.withdrawal(accountId, amount);
-            operationService.create(accountId, null, WITHDRAWAL);
+            operationService.create(accountId, null, WITHDRAWAL, amount);
             return ResponseEntity.ok(null);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
